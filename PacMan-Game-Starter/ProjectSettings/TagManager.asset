@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fruit
+  - Pickup
+  - Food
+  - BadFood
+  - BadPellet
+  - MegaChompPellet
   layers:
   - Default
   - TransparentFX
