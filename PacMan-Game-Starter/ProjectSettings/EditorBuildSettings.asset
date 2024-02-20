@@ -14,5 +14,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 5b96cd02375db6348b3f767f57f0bd7f
+  - enabled: 0
+    path: Assets/Scenes/PauseWorld.unity
+    guid: 6d9045047fe1a5b488003f7c478708df
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
