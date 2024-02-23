@@ -10,13 +10,16 @@ public class GameStats : MonoBehaviour
 {
     private int numPelletsCollected = 0;
     public int health = 100;
+    public int energy = 100;
 
     public bool megaChomp;
     public TextMeshProUGUI countText;
     public TextMeshProUGUI healthText;
+    public TextMeshProUGUI energyText;
+
     public Material myMegaMaterial;
     public GameObject myPacMan;
-
+    private Vector3 initialVelocity;
     private AudioSource[] myAudios; // Reference to the AudioSource component
 
     // Use this for initialization
@@ -26,7 +29,9 @@ public class GameStats : MonoBehaviour
         myPacMan = this.transform.gameObject;
         countText.text = "Score : " + numPelletsCollected.ToString();
         healthText.text = "Health : " + health.ToString() + "%";
+        energyText.text = "Energy : " + energy.ToString() + "%";
 
+        initialVelocity = myPacMan.GetComponent<Rigidbody>().velocity;
         // Get the AudioSource component attached to the game object
         myAudios = GetComponents<AudioSource>();
     }
@@ -40,6 +45,7 @@ public class GameStats : MonoBehaviour
         {
             numPelletsCollected += 1;
             countText.text = "Score : " + numPelletsCollected.ToString();
+
         }
 
         if (other.gameObject.CompareTag("BadPickup"))
@@ -55,6 +61,10 @@ public class GameStats : MonoBehaviour
             myAudios[1].Play();
             myPacMan.transform.localScale = new Vector3(2, 2, 2);
             StartCoroutine(ReturnBackToNormal(10));
+
+            energy -= 50;
+            energyText.text = "Energy : " + energy.ToString() + "%";
+            myPacMan.GetComponent<Rigidbody>().velocity *= 0.0001f; // slow down the game character
             //myPacMan.GetComponent<Renderer>().material = myMegaMaterial;
         }
     }
@@ -66,6 +76,8 @@ public class GameStats : MonoBehaviour
         megaChomp = false;
         myAudios[1].Stop();
         myAudios[0].Play();
+        myPacMan.GetComponent<Rigidbody>().velocity = initialVelocity;
+
 
     }
 }
