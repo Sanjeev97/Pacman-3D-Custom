@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,14 +9,19 @@ public class GameStats : MonoBehaviour
 
 {
     private int numPelletsCollected = 0;
-    private int health = 100;
+    public int health = 100;
 
+    public bool megaChomp;
     public TextMeshProUGUI countText;
     public TextMeshProUGUI healthText;
+    public Material myMegaMaterial;
+    public GameObject myPacMan;
 
     // Use this for initialization
     void Start()
     {
+        megaChomp = false;
+        myPacMan = this.transform.gameObject;
         countText.text = "Score : " + numPelletsCollected.ToString();
         healthText.text = "Health : " + health.ToString() + "%";
 
@@ -36,6 +42,13 @@ public class GameStats : MonoBehaviour
         {
             health -= 5;
             healthText.text = "Health : " + health.ToString() + "%";
+        }
+
+        if(other.gameObject.CompareTag("MegaChompPellet"))
+        {
+            megaChomp = true;
+            myPacMan.transform.localScale = new Vector3(3, 3, 3);
+            //myPacMan.GetComponent<Renderer>().material = myMegaMaterial;
         }
     }
 }
