@@ -17,6 +17,8 @@ public class GameStats : MonoBehaviour
     public Material myMegaMaterial;
     public GameObject myPacMan;
 
+    private AudioSource[] myAudios; // Reference to the AudioSource component
+
     // Use this for initialization
     void Start()
     {
@@ -25,6 +27,8 @@ public class GameStats : MonoBehaviour
         countText.text = "Score : " + numPelletsCollected.ToString();
         healthText.text = "Health : " + health.ToString() + "%";
 
+        // Get the AudioSource component attached to the game object
+        myAudios = GetComponents<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -47,9 +51,22 @@ public class GameStats : MonoBehaviour
         if(other.gameObject.CompareTag("MegaChompPellet"))
         {
             megaChomp = true;
-            myPacMan.transform.localScale = new Vector3(3, 3, 3);
+            myAudios[0].Stop();
+            myAudios[1].Play();
+            myPacMan.transform.localScale = new Vector3(2, 2, 2);
+            StartCoroutine(ReturnBackToNormal(10));
             //myPacMan.GetComponent<Renderer>().material = myMegaMaterial;
         }
+    }
+
+    private IEnumerator ReturnBackToNormal(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        myPacMan.transform.localScale = new Vector3(1, 1, 1);
+        megaChomp = false;
+        myAudios[1].Stop();
+        myAudios[0].Play();
+
     }
 }
 
