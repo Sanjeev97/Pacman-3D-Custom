@@ -46,15 +46,27 @@ public class GameStats : MonoBehaviour
             numPelletsCollected += 1;
             countText.text = "Score : " + numPelletsCollected.ToString();
 
+            if(energy <100)
+            {
+                energy += 10;
+                energyText.text = "Energy : " + energy.ToString() + "%";
+            }
+
+            if(health < 100)
+            {
+                health += 5;
+                healthText.text = "Health : " + health.ToString() + "%";                
+            }
+
         }
 
-        if (other.gameObject.CompareTag("BadPickup"))
+        else if (other.gameObject.CompareTag("BadPickup") && !other.gameObject.CompareTag("MegaChompPellet"))
         {
             health -= 5;
             healthText.text = "Health : " + health.ToString() + "%";
         }
 
-        if(other.gameObject.CompareTag("MegaChompPellet"))
+        else if(other.gameObject.CompareTag("MegaChompPellet"))
         {
             megaChomp = true;
             myAudios[0].Stop();

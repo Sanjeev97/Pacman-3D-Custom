@@ -15907,7 +15907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000013990645286, guid: 42b18c9d3a690644490d729db35f6754, type: 3}
       propertyPath: m_TagString
-      value: BadPellet
+      value: BadPickup
       objectReference: {fileID: 0}
     - target: {fileID: 4000013353021022, guid: 42b18c9d3a690644490d729db35f6754, type: 3}
       propertyPath: m_RootOrder
