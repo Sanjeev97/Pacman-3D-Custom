@@ -12,6 +12,7 @@ TagManager:
   - MegaChompPellet
   - PacMan
   - BadPickup
+  - Enemy
   layers:
   - Default
   - TransparentFX

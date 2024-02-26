@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement; // Required for loading scenes
+
 
 public class GameStats : MonoBehaviour
 
@@ -17,6 +19,8 @@ public class GameStats : MonoBehaviour
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI energyText;
 
+    public int enemyCount;
+
     public Material myMegaMaterial;
     public GameObject myPacMan;
     private Vector3 initialVelocity;
@@ -26,6 +30,7 @@ public class GameStats : MonoBehaviour
     void Start()
     {
         megaChomp = false;
+        enemyCount = 5;
         myPacMan = this.transform.gameObject;
         countText.text = "Score : " + numPelletsCollected.ToString();
         healthText.text = "Health : " + health.ToString() + "%";
@@ -38,6 +43,8 @@ public class GameStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+                Debug.Log(enemyCount);
+
     }
     void OnTriggerEnter(Collider other)
     {
@@ -79,6 +86,17 @@ public class GameStats : MonoBehaviour
             myPacMan.GetComponent<Rigidbody>().velocity *= 0.0001f; // slow down the game character
             //myPacMan.GetComponent<Renderer>().material = myMegaMaterial;
         }
+
+    
+        if(megaChomp == true && other.gameObject.CompareTag("Enemy"))
+        {
+            enemyCount -= 1;
+        }
+
+        if(enemyCount == 0) {
+            SceneManager.LoadScene("GameOver"); // change to you win screen
+        }
+
     }
 
     private IEnumerator ReturnBackToNormal(float delay)
