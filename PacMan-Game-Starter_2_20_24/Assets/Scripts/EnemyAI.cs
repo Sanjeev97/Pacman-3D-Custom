@@ -40,8 +40,15 @@ public class GhostAI : MonoBehaviour
     }
 
     void Update()
-    {
-        agent.SetDestination(GetTargetPosition());
+    {   bool mc = GameObject.Find("Pac-man").GetComponent<GameStats>().megaChomp;
+        if(mc == false)
+        {
+            agent.SetDestination(GetTargetPosition());
+        }
+        else
+        {
+            agent.SetDestination(-pacManTransform.position);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
